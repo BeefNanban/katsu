@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Room1.unity
+- path: Assets/FreeHorrorGameKit/Scenes/Demo Scene.unity
   isLoaded: 1
   isActive: 1
