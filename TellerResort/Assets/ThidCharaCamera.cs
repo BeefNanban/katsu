@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThidCharaCamera : MonoBehaviour {
+public class ThidCharaCamera : MonoBehaviour
+{
+    GameObject targetObj;
+    Vector3 targetPos;
 
-    public Transform target;
-    public float smooth = 5f;
-    private Vector3 offset;
+    void Start()
+    {
+        targetObj = GameObject.Find("Player 1");
+        targetPos = targetObj.transform.position;
+    }
 
-	// Use this for initialization
-	void Start () {
-        offset = transform.position - target.position;	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Vector3 targetPos = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * smooth);
-	}
+    void Update()
+    {
+        transform.position += targetObj.transform.position - targetPos;
+        targetPos = targetObj.transform.position;
+
+        if (Input.GetMouseButton(1))
+        {
+            float mouseInputX = Input.GetAxis("Mouse X");
+            float mouseInputY = Input.GetAxis("Mouse Y");
+
+            transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * 200f);
+            transform.RotateAround(targetPos, transform.right, mouseInputY * Time.deltaTime * 200f);
+        }
+    }
 }
